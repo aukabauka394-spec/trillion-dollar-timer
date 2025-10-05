@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Future Hours Remaining — 2026–2050</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container fade-in">
+    <h1 class="title">🗓 Future Hours Remaining (2026–2050)</h1>
+    <div id="future-list" class="time-box glass scrollable"></div>
+    <a href="index.html" class="next-btn">⬅ Back</a>
+  </div>
+
+  <script>
+    const list = document.getElementById("future-list");
+    const now = new Date();
+    const bdTime = new Date(now.toLocaleString("en-US", { timeZone: "Asia/Dhaka" }));
+
+    for (let year = 2026; year <= 2050; year++) {
+      const endOfYear = new Date(`Jan 1, ${year} 00:00:00 GMT+0600`);
+      const diff = endOfYear - bdTime;
+      const hours = Math.floor(diff / (1000 * 60 * 60));
+
+      const p = document.createElement("p");
+      p.innerHTML = `<strong>Hours Remaining till ${year}:</strong> ${hours.toLocaleString()}`;
+      list.appendChild(p);
+    }
+  </script>
+</body>
+</html>

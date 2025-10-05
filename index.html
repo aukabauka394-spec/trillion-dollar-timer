@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Time Remaining — Today & Current Year</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container fade-in">
+    <h1 class="title">⏳ Time Remaining (Bangladesh)</h1>
+    <div class="time-box glass">
+      <p><strong>Hours Remaining Today:</strong> <span id="hours-today">--</span></p>
+      <p><strong>Total Minutes Remaining Today:</strong> <span id="minutes-today">--</span></p>
+      <p><strong>Total Seconds Remaining Today:</strong> <span id="seconds-today">--</span></p>
+      <hr />
+      <p><strong>Hours Remaining in <span id="year-label">--</span>:</strong> <span id="hours-year">--</span></p>
+    </div>
+
+    <a href="next.html" class="next-btn">Next ➜</a>
+  </div>
+
+  <script>
+    function updateTime() {
+      const now = new Date();
+      const bdTime = new Date(now.toLocaleString("en-US", { timeZone: "Asia/Dhaka" }));
+
+      const endOfDay = new Date(bdTime);
+      endOfDay.setHours(23, 59, 59, 999);
+
+      const currentYear = bdTime.getFullYear();
+      const endOfYear = new Date(`Dec 31, ${currentYear} 23:59:59 GMT+0600`);
+
+      const diffToday = endOfDay - bdTime;
+      const diffYear = endOfYear - bdTime;
+
+      const hoursToday = Math.floor(diffToday / (1000 * 60 * 60));
+      const minutesToday = Math.floor(diffToday / (1000 * 60));
+      const secondsToday = Math.floor(diffToday / 1000);
+      const hoursYear = Math.floor(diffYear / (1000 * 60 * 60));
+
+      document.getElementById("hours-today").textContent = hoursToday.toLocaleString();
+      document.getElementById("minutes-today").textContent = minutesToday.toLocaleString();
+      document.getElementById("seconds-today").textContent = secondsToday.toLocaleString();
+      document.getElementById("hours-year").textContent = hoursYear.toLocaleString();
+      document.getElementById("year-label").textContent = currentYear;
+    }
+
+    setInterval(updateTime, 1000);
+    updateTime();
+  </script>
+</body>
+</html>
